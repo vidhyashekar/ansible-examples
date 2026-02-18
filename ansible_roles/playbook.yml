@@ -1,0 +1,8 @@
+---
+- name: Setup server common utiltities, web and apache servers
+  hosts: all
+  become: yes
+
+  roles:
+    - common_role
+    - apache_role
