@@ -1,0 +1,33 @@
+---
+- name: Check system uptime on all servers
+  hosts: all
+
+  tasks:
+    - name: Get uptime
+      command: uptime
+      register: uptime_output
+
+    - name: Display uptime
+      debug:
+        var: uptime_output.stdout
+
+- name: Create a devops user
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Create devops user
+      user:
+        name: devops
+        state: present
+        shell: /bin/bash
+
+- name: Setup Database servers
+  hosts: sylvie
+  become: true
+
+  tasks:
+    - name: Install mysql
+      apt:
+        name: mysql-server
+        state: present
